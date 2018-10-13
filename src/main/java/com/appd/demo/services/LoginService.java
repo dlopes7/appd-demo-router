@@ -39,7 +39,6 @@ public class LoginService extends HystrixCommand<String> {
         LoginVO loginVO = gson.fromJson(routeRequest.getData(), LoginVO.class);
 
         // We are forwarding every header
-        routeRequest.getHeaders().remove("singularityheader");
         Headers headers = Headers.of(routeRequest.getHeaders());
 
         MediaType JSON = MediaType.parse("application/json; charset=utf-8");

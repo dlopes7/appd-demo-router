@@ -35,7 +35,11 @@ public class RouterController {
         while (headerNames.hasMoreElements()){
             String headerName = headerNames.nextElement();
             String headerValue = context.getHeader(headerName);
-            routeRequest.getHeaders().put(headerName, headerValue);
+
+            // Don't forward singularityheader, don't want to break correlation
+            if(!headerName.equals("singularityheader")) {
+                routeRequest.getHeaders().put(headerName, headerValue);
+            }
         }
 
         switch (routeRequest.getMethod()) {
