@@ -7,7 +7,7 @@ import com.google.gson.Gson;
 import com.netflix.hystrix.HystrixCommand;
 import com.netflix.hystrix.HystrixCommandGroupKey;
 import com.netflix.hystrix.HystrixCommandProperties;
-import okhttp3.*;
+import com.squareup.okhttp.*;
 
 import java.io.IOException;
 

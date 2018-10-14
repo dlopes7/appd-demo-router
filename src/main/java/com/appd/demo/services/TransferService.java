@@ -2,13 +2,12 @@ package com.appd.demo.services;
 
 import com.appd.demo.models.TransferVO;
 import com.appd.demo.responses.LoginResponse;
-import com.appd.demo.models.LoginVO;
 import com.appd.demo.models.RouteRequest;
 import com.google.gson.Gson;
 import com.netflix.hystrix.HystrixCommand;
 import com.netflix.hystrix.HystrixCommandGroupKey;
 import com.netflix.hystrix.HystrixCommandProperties;
-import okhttp3.*;
+import com.squareup.okhttp.*;
 
 import java.io.IOException;
 
