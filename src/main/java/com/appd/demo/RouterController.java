@@ -1,7 +1,9 @@
 package com.appd.demo;
 
 import com.appd.demo.models.RouteRequest;
+import com.appd.demo.services.BalanceService;
 import com.appd.demo.services.LoginService;
+import com.appd.demo.services.TransferService;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -44,8 +46,17 @@ public class RouterController {
 
         switch (routeRequest.getMethod()) {
             case "login" :
-                System.out.println("Doing login");
+                System.out.println("ROUTER - Doing login");
                 return new LoginService("http://localhost:8081/api/login", routeRequest).execute();
+
+            case "transfer" :
+                System.out.println("ROUTER - Doing transfer");
+                return new TransferService("http://localhost:8082/api/transfer", routeRequest).execute();
+
+            case "balance" :
+                System.out.println("ROUTER - Doing balance");
+                return new BalanceService("http://localhost:8082/api/balance", routeRequest).execute();
+
             default :
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("").toString();
         }

@@ -1,4 +1,4 @@
-package com.appd.demo.models;
+package com.appd.demo.responses;
 
 public class LoginResponse {
 

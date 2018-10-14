@@ -1,5 +1,6 @@
 package com.appd.demo.services;
 
+import com.appd.demo.models.AccountVO;
 import com.appd.demo.responses.LoginResponse;
 import com.appd.demo.models.LoginVO;
 import com.appd.demo.models.RouteRequest;
@@ -15,12 +16,12 @@ import java.io.IOException;
  * Created by dlopes on 5/20/18.
  */
 
-public class LoginService extends HystrixCommand<String> {
+public class BalanceService extends HystrixCommand<String> {
 
     private final String urlPath;
     private RouteRequest routeRequest;
 
-    public LoginService(String urlPath, RouteRequest routeRequest){
+    public BalanceService(String urlPath, RouteRequest routeRequest){
         super(Setter.withGroupKey(HystrixCommandGroupKey.Factory.asKey("LoginGroup"))
                 .andCommandPropertiesDefaults(HystrixCommandProperties.Setter().
                         withMetricsRollingStatisticalWindowInMilliseconds(60000)));
@@ -34,13 +35,13 @@ public class LoginService extends HystrixCommand<String> {
     protected String run() throws IOException {
 
         Gson gson = new Gson();
-        LoginVO loginVO = gson.fromJson(routeRequest.getData(), LoginVO.class);
+        AccountVO accountVO = gson.fromJson(routeRequest.getData(), AccountVO.class);
 
         // We are forwarding every header
         Headers headers = Headers.of(routeRequest.getHeaders());
 
         MediaType JSON = MediaType.parse("application/json; charset=utf-8");
-        RequestBody body = RequestBody.create(JSON, gson.toJson(loginVO));
+        RequestBody body = RequestBody.create(JSON, gson.toJson(accountVO));
         Request request = new Request.Builder()
                 .url(urlPath)
                 .post(body)
@@ -65,7 +66,7 @@ public class LoginService extends HystrixCommand<String> {
         Gson gson = new Gson();
         LoginResponse loginResponse = new LoginResponse();
 
-        loginResponse.setMessage("Falha no Login!");
+        loginResponse.setMessage("Falha na consulta de saldo!");
         loginResponse.setSuccess(false);
 
         return gson.toJson(loginResponse);
