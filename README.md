@@ -26,8 +26,9 @@ It will then, call an `HTTP Service` using Hystrix, based on which `method` was 
 
 ## Docker
 
+1. `docker network create mobile`
 1. `docker build . -t appd-demo-router`
-2. `docker run -d -p 8080:8080 --name=router -v /opt/java-agent:/usr/java-agent -e "JAVA_OPTS=-Dserver.port=8080 -javaagent:/usr/java-agent/javaagent.jar -Dappdynamics.agent.applicationName=Mobile -Dappdynamics.agent.tierName=router -Dappdynamics.agent.reuse.nodeName=true -Dappdynamics.agent.reuse.nodeName.prefix=router -Dappdynamics.controller.port=8090 -Dappdynamics.controller.hostName=controller_hostname -Dappdynamics.agent.accountAccessKey=controller_access_key" appd-demo-router`
+2. `docker run -d -p 8080:8080 --name=router --net=mobile -v /opt/java-agent:/usr/java-agent -e "JAVA_OPTS=-Dserver.port=8080 -Dapp.login.url=http://login:8081 -Dapp.account.url=http://account:8082 -javaagent:/usr/java-agent/javaagent.jar -Dappdynamics.agent.applicationName=Mobile -Dappdynamics.agent.tierName=router -Dappdynamics.agent.reuse.nodeName=true -Dappdynamics.agent.reuse.nodeName.prefix=router -Dappdynamics.controller.port=8090 -Dappdynamics.controller.hostName=controller_hostname -Dappdynamics.agent.accountAccessKey=controller_access_key" appd-demo-router`
 
 ## Implemented Services
 
