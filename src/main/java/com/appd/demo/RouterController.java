@@ -6,6 +6,7 @@ import com.appd.demo.services.LoginService;
 import com.appd.demo.services.TransferService;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,6 +25,9 @@ public class RouterController {
 
     @Autowired
     private HttpServletRequest context;
+
+    @Autowired
+    private Environment env;
 
     @RequestMapping(value = "/appd-router", produces = "application/json")
     public String router(@RequestBody String body) throws Exception{
@@ -47,15 +51,15 @@ public class RouterController {
         switch (routeRequest.getMethod()) {
             case "login" :
                 System.out.println("ROUTER - Doing login");
-                return new LoginService("http://localhost:8081/api/login", routeRequest).execute();
+                return new LoginService(env.getProperty("app.login.url") + "/api/login", routeRequest).execute();
 
             case "transfer" :
                 System.out.println("ROUTER - Doing transfer");
-                return new TransferService("http://localhost:8082/api/transfer", routeRequest).execute();
+                return new TransferService(env.getProperty("app.account.url") + "/api/transfer", routeRequest).execute();
 
             case "balance" :
                 System.out.println("ROUTER - Doing balance");
-                return new BalanceService("http://localhost:8082/api/balance", routeRequest).execute();
+                return new BalanceService(env.getProperty("app.account.url") + "/api/balance", routeRequest).execute();
 
             default :
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("").toString();
