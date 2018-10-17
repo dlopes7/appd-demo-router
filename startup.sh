@@ -1,4 +1,6 @@
-/extractAgent.sh
+#!/bin/bash
+
+sh /usr/app/extractAgent.sh
 
 # AppDynamics instrumentation
 JAVA_OPTS="$JAVA_OPTS -Dappdynamics.agent.tierName=$TIER_NAME"
@@ -10,4 +12,4 @@ JAVA_OPTS="$JAVA_OPTS -Dappdynamics.socket.collection.bci.enable=true"
 JAVA_OPTS="$JAVA_OPTS -Xms64m -Xmx512m -XX:MaxPermSize=256m -Djava.net.preferIPv4Stack=true"
 JAVA_OPTS="$JAVA_OPTS -Djava.security.egd=file:/dev/./urandom"
 
-java $JAVA_OPTS -jar /usr/app/appd-demo-router-0.0.3.jar
+java $JAVA_OPTS -jar /usr/app/appd-demo-router-0.0.3.jar -Dserver.port=8079 -Dapp.login.url=http://login:8081 -Dapp.account.url=http://account:8082
