@@ -4,6 +4,6 @@ COPY pom.xml /usr/src/app
 RUN mvn -f /usr/src/app/pom.xml clean package
 
 FROM openjdk:8
-COPY --from=build /usr/src/app/target/appd-demo-router-0.0.3.jar /usr/app/appd-demo-router-0.0.3.jar
+COPY --from=build /usr/src/app/target/appd-demo-router-0.0.4.jar /usr/app/appd-demo-router-0.0.4.jar
 EXPOSE 8080 
-ENTRYPOINT exec java $JAVA_OPTS -jar /usr/app/appd-demo-router-0.0.3.jar
+ENTRYPOINT exec java $JAVA_OPTS -jar /usr/app/appd-demo-router-0.0.4.jar
