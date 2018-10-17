@@ -19,3 +19,5 @@ if [ -d "/sharedFiles" ]; then
 else
 
   echo "/sharedFiles not found!"
+
+fi
