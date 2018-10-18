@@ -1,0 +1,56 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: demo-router
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        name: demo-router
+    spec:
+      initContainers:
+      - name: agent-repo
+        image: agent-repo:4.5.0
+        imagePullPolicy: Never
+        command: ["cp", "/sharedFiles/AppServerAgent.zip", "/mountPath/AppServerAgent.zip"]
+        volumeMounts:
+        - mountPath: /mountPath
+          name: shared-files
+      volumes:
+        - name: shared-files
+          emptyDir: {}
+      serviceAccountName: appd-agent
+      containers:
+        - name: demo-router
+          image: appd-demo-router
+          imagePullPolicy: Never
+          securityContext:
+            privileged: true
+          envFrom:
+            - configMapRef:
+                name: controller-config
+          env:
+            - name: TIER_NAME
+              value: Router
+          ports:
+          - containerPort: 8079
+          volumeMounts:
+            - mountPath: /sharedFiles
+              name: shared-files
+      restartPolicy: Always
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: appd-demo-router
+spec:
+  selector:
+    name: demo-router
+  ports:
+  - name: "8079"
+    port: 8079
+    targetPort: 8079
+status:
+  loadBalancer: {}
