@@ -8,6 +8,6 @@ RUN ["chmod", "+x", "/usr/app/extractAgent.sh"]
 RUN mvn -f /usr/src/app/pom.xml clean package
 
 FROM openjdk:8
-COPY --from=build /usr/src/app/target/appd-demo-router-0.0.3.jar /usr/app/appd-demo-router-0.0.3.jar
+COPY --from=build /usr/src/app/target/appd-demo-router-0.0.4.jar /usr/app/appd-demo-router-0.0.4.jar
 EXPOSE 8079
 ENTRYPOINT ["/usr/app/startup.sh"]

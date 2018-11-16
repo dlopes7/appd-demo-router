@@ -12,4 +12,4 @@ JAVA_OPTS="$JAVA_OPTS -Dappdynamics.socket.collection.bci.enable=true"
 JAVA_OPTS="$JAVA_OPTS -Xms64m -Xmx512m -XX:MaxPermSize=256m -Djava.net.preferIPv4Stack=true"
 JAVA_OPTS="$JAVA_OPTS -Djava.security.egd=file:/dev/./urandom"
 
-java $JAVA_OPTS -jar /usr/app/appd-demo-router-0.0.3.jar -Dserver.port=8079 -Dapp.login.url=http://login:8081 -Dapp.account.url=http://account:8082
+java $JAVA_OPTS -jar /usr/app/appd-demo-router-0.0.4.jar -Dserver.port=8080 -Dapp.login.url=$APP_LOGIN_URL -Dapp.account.url=$APP_ACCOUNT_URL
