@@ -6,7 +6,7 @@ if [ -d "/sharedFiles" ]; then
   if [ -f "/sharedFiles/AppServerAgent.zip" ]; then
       echo "/sharedFiles/AppServerAgent.zip found!"
 
-          mkdir -p /appdynamics
+      mkdir -p /appdynamics
       cp /sharedFiles/AppServerAgent.zip /appdynamics/AppServerAgent.zip
       unzip /appdynamics/AppServerAgent.zip -d /appdynamics/AppServerAgent && rm /appdynamics/AppServerAgent.zip
 
